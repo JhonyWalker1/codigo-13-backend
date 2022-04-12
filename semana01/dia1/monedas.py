@@ -82,7 +82,8 @@ while(opcion == ""):
         else:
             print("opcion no valida")
             opcion=""
-            break
+            
+            
 
 
 """  print("El monto en dolares es: " , montoDolaresFormato)"""
