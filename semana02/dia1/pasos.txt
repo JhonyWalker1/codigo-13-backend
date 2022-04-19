@@ -1,0 +1,9 @@
+#creacion de entorno virtual
+python -m venv venv
+
+
+#para activarlo
+source venv/Scripts/activate
+
+#para desactivar
+deactivate
