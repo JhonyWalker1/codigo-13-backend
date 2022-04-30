@@ -19,23 +19,46 @@ def index():
         'mensaje':'Bienvenido a la API de la aplicacion'
     })
 
-@app.route('/alumnos', methods=['GET'])
+@app.route('/alumno', methods=['GET'])
 def getAlumno():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM tbl_alumno")
     data = cur.fetchall()
-    alumnos = []
+    cur.close()
+    
+    print(data)
+    """ alumnos = []
     for alumno in data:
         alumnos.append({
             'id':alumno[0],
             'nombre':alumno[1],
             'apellido':alumno[2],
             'edad':alumno[3]
-        })
+        }) """
     return jsonify({
         'status':'ok',
         'mensaje':'Listado de alumnos',
-        'alumnos':alumnos
+        'alumno':data
+    })
+
+@app.route('/alumno', methods=['POST'])
+def setAlumno():
+    nombre = request.json['nombre']
+    celular = request.json['celular']
+    github = request.json['github']
+    
+    cursor = mysql.connection.cursor()
+    
+    cursor.execute("insert into tbl_alumno(alumno_nombre,alumno_celular,alumno_github) values('"+ nombre +"','"+ celular +"','"+ github +"')")
+    
+   # cursor.execute("insert into tbl_alumno(alumno_nombre,alumno_celular,alumno_github) values('"+ nombre +"','"+ celular +"','"+ github +"')")
+    
+    mysql.connection.commit()
+    cursor.close()
+    
+    return jsonify({
+        "ok":True,
+        "mensaje":"Alumno agregado"
     })
 
 
