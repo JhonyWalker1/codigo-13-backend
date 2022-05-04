@@ -46,7 +46,6 @@ def setAlumno():
     nombre = request.json['nombre']
     celular = request.json['celular']
     github = request.json['github']
-    
     cursor = mysql.connection.cursor()
     
     cursor.execute("insert into tbl_alumno(alumno_nombre,alumno_celular,alumno_github) values('"+ nombre +"','"+ celular +"','"+ github +"')")
@@ -61,6 +60,66 @@ def setAlumno():
         "mensaje":"Alumno agregado"
     })
 
+@app.route('/alumno/<id>') #,methods=['PUT'])
+def getAlumnoById(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM tbl_alumno WHERE alumno_id =' "+id +" '")
+    data=cursor.fetchall()
+    cursor.close()
+    print(data)
+    
+    return jsonify({
+        'status':'ok',
+        'mensaje':'datos de un alumno',
+        'alumno':data
+    })
+    
+@app.route('/alumno/<id>', methods=['PUT'])
+def updateAlumno(id):
+    
+    nombre = request.json['nombre']
+    email = request.json['email']
+    celular = request.json['celular']
+    github = request.json['github']
+    
+    cursor = mysql.connection.cursor()
+    sqlUpdateAlumno = "update tbl_alumno set "
+    sqlUpdateAlumno += "alumno_nombre='"+ nombre +"',alumno_email='"+ email +"'"
+    sqlUpdateAlumno += ",alumno_celular='"+ celular+"',alumno_github='"+ github +"' "
+    sqlUpdateAlumno += "where alumno_id = '"+ id +"'"
+    cursor.execute(sqlUpdateAlumno)
+    mysql.connection.commit()
+    cursor.close()
+    
+    return jsonify({
+        "ok":True,
+        "message":"Alumno actualizado"
+    })
+    
+@app.route('/alumno/<id>', methods=['DELETE'])
+def deleteAlumno(id):
+    
+    try:
+        cursor = mysql.connection.cursor()
+            
+        cursor.execute("DELETE FROM tbl_alumno WHERE alumno_id = '"+ id +"'")
+        mysql.connection.commit()
+        cursor.close()
+            
+        return jsonify({
+            "ok":True,
+            "mensaje":"Alumno eliminado"
+        })
+    except Exception as e:
+        return jsonify({
+            "ok":False,
+            "mensaje":str(e)
+        }),401
+    
+   
 
 if __name__ == '__main__':
     app.run(debug=True,port=5000)
+    
+    
+  # """  update tbl_alumno set alumno_email = '' when alumno_id = '' """

@@ -1,0 +1,15 @@
+paso 1 - crear entorno virtual
+python -m venv venv
+
+paso 2 - activar entorno virtual
+source venv/Scripts/activate
+
+paso 3 - instalar django
+pip install django
+
+paso 4 - crear el proyecto con django
+django-admin startproject recetas
+
+paso 5 - crear el app con el proyecto
+cd recetas
+python manage.py startapp app
