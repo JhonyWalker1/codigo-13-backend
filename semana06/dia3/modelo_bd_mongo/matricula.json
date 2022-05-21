@@ -1,0 +1,27 @@
+[{
+    "fecha":"2022-05-20T14:10:30Z",
+    "alumno":{
+        "codigo":1,
+        "nombre":"jhonatan aliaga"
+    },
+    "nivel": {
+        "nombre":"basico"
+    },
+    "modulo":{
+        "nombre":"backend"
+    },
+    "cursos": [
+        {
+            "nombre":"python",
+            "horas":20
+        },
+        {
+            "nombre":"flask",
+            "horas":20
+        },
+        {
+            "nombre":"django",
+            "horas":20
+        }
+    ]     
+}]
